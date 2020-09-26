@@ -1,76 +1,76 @@
 # GoalApplication
 
-FrontEnd Server(GoalReminder)  (Need To research)
-(React Server)
-Login/SignUp [SignUp Password, email-id, Name]
-1. Input Goals /Todo List 
+FrontEnd Server(GoalReminder)  (Need To research)<br/>
+(React Server)<br/>
+Login/SignUp [SignUp Password, email-id, Name]<br/>
+1. Input Goals /Todo List <br/>
 	Input short Term Goals(Name is Optional), Long Term Goal, Target for STG(Days)[Calendar for frontend], Target for LTG(Days)[Calendar for frontend]
 	Submit Button -> GoalProcessingService[POST /saveGoals]
 
-2. Update Daily/Weekly Todo List
+2. Update Daily/Weekly Todo List<br/>
 	Short Term Goal Name, Description(Optional), Completion Checkbox, Submit Button
 	Submit Button->[POST /dailyFeed]
 
 
 
-Express Server(GoalProcessingService)  (Need To research)
-Login[Sign Up POST/signUp] [Login GET/login]
+Express Server(GoalProcessingService)  (Need To research)<br/>
+Login[Sign Up POST/signUp] [Login GET/login]<br/>
 1. Validate and Save data in DB[POST /saveGoals]
 2. Send Daily Update In Calendar[POST /dailyFeed]
 3. Trigger Python Server on any change in data of DB
 
 
-Python Server(GoalAnalyzer)  (Need To research)
+Python Server(GoalAnalyzer)  (Need To research)<br/>
 
-1. Run Query for Analystics (Doable)
+1. Run Query for Analystics (Doable)<br/>
 	-How regularly he is completeing goals
 	-percentage completion(STG and LTG)
 	-Estimated Completion Time
 	-Target Completeion Time
 	-Daily effort increase percentage if he is lacking, if on/ahead track send perfect as default
-2. Store Analytics Data in DB (Need To research)
+2. Store Analytics Data in DB (Need To research)<br/>
 
 
-Shell Script  (Need To research)
+Shell Script  (Need To research)<br/>
 1.Collect Data from DB
 2.Trigger Mail
 
 
 
-Schema-> Reminder (Doable)
+Schema-> Reminder (Doable)<br/>
 Tables :
-User 
-	-Username(emailid)
-	-password(Encrypted)
-	-Name
-Goal
-	-User->username
-	-id
-	-createdTime
-	-updatedTime
-	-target(Date)
-	-GoalType->id
-	-description
+User <br/>
+	- Username(emailid)
+	- password(Encrypted)
+	- Name
+Goal<br/>
+	- User->username<br/>
+	- id<br/>
+	- createdTime<br/>
+	- updatedTime<br/>
+	- target(Date)<br/>
+	- GoalType->id<br/>
+	- description<br/>
 
-GoalType
-	-id
-	-type
+GoalType<br/>
+	- id<br/>
+	- type<br/>
 
-dailyfeed
-	-id
-	-User->username
-	-Goal->id
-	-Descrption
-	-CompletedTime
+dailyfeed<br/>
+	- id<br/>
+	- User->username<br/>
+	- Goal->id<br/>
+	- Descrption<br/>
+	- CompletedTime<br/>
 
-GoalAnalysis
-	-user-id
-	-regularity
-	-estimatedcompletion
-	-targetcompletion
-	-effort
-	-stgcompletion
-	-ltgcompletion
+GoalAnalysis<br/>
+	- user-id<br/>
+	- regularity<br/>
+	- estimatedcompletion<br/>
+	- targetcompletion<br/>
+	- effort<br/>
+	- stgcompletion<br/>
+	- ltgcompletion<br/>
 
 
 
