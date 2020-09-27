@@ -92,3 +92,7 @@ Shell Script
 - Research - 1hr
 - Implementation - 1hr
 
+**Google Calendar**
+[Video Referece](https://www.youtube.com/watch?v=zrLf4KMs71E&ab_channel=TheLifeOfADev)
+[Git Reference](https://github.com/CamSkiTheDev/Google-Calendar-NodeJS-App/blob/master/index.js)
+
