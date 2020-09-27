@@ -1,42 +1,61 @@
 SELECT
----
+base.username,
+CAST((DATEDIFF(DATE_ADD(base.completed_time, INTERVAL 1 DAY),base.createdat)/DATEDIFF(ltg_target_date,base.createdat))*100 AS DECIMAL(10,2)) AS ltg_percentage_completion,
+CAST((stg_cnt.stg_completed_count/stg.stg_count)*100 AS DECIMAL(10,2)) AS stg_percentage_completion
 FROM
 (
       SELECT
-           *
+           u.username,
+           g.createdat,
+           d.completed_time
       FROM (
             SELECT *
-            FROM reminder.user
+            FROM goalreminder.user
             WHERE username='${NAME}'
            ) u
-      LEFT JOIN reminder.goal g
+      LEFT JOIN goalreminder.goal g
       ON u.username=g.username
-      LEFT JOIN reminder.goaltype gt
-      ON g.type_id=gt.id
-      LEFT JOIN reminder.dailyfeed d
+      LEFT JOIN goalreminder.goaltype gt
+      ON g.goaltype=gt.id
+      INNER JOIN goalreminder.dailyfeed d
       ON u.username=d.username
+	  AND g.id=d.goal_id
 ) base
 LEFT JOIN
 (
  SELECT
        username,
-       target_date AS stg_target_date,
+       createdat AS stg_created_date,
        count(*) AS stg_count
- FROM reminder.goal
- WHERE username='${NAME}'
-       AND type_id='1'
- GROUP BY username,target_date
+ FROM goalreminder.goal
+ WHERE username='${NAME}' AND
+	   goaltype='1'
+ GROUP BY username,createdat
 ) stg
 ON base.username=stg.username
 LEFT JOIN
 (
  SELECT
        username,
-       target_date AS ltg_target_date,
+       target AS ltg_target_date,
        COUNT(*) AS ltg_count
- FROM reminder.goal
- WHERE username='${NAME}'
-       AND type_id='2'
- GROUP BY username,target_date
-) stg
-ON base.username=stg.username
+ FROM goalreminder.goal
+ WHERE username='${NAME}' AND
+       goaltype='2'
+ GROUP BY username,createdat,target
+) ltg
+ON base.username=ltg.username
+LEFT JOIN
+(
+ SELECT
+       g.username,
+       count(*) AS stg_completed_count
+ FROM goalreminder.goal g
+ INNER JOIN goalreminder.dailyfeed d
+ ON g.id=d.goal_id
+ WHERE g.username='${NAME}' AND
+       goaltype='1'
+ GROUP BY g.username,createdat,target
+) stg_cnt
+ON base.username=stg_cnt.username
+GROUP BY USERNAME,ltg_percentage_completion,stg_percentage_completion
