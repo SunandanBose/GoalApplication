@@ -1,1 +1,1 @@
-SELECT * FROM fms.airport;
+SELECT * FROM Resource.test;

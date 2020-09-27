@@ -7,7 +7,7 @@ api = Api(app)
 
 
 cnx = connection.MySQLConnection(user='root', password='password',
-                                 host='127.0.0.1', database='fms')
+                                 host='127.0.0.1', database='Resource')
 
 
 
@@ -19,8 +19,7 @@ class Hello(Resource):
             for line in open('sample.sql'):
                 cursor.execute(line)
             data = cursor.fetchall()
-            print(data)
-            return 200
+            return data
 
 
 	def post(self): 
