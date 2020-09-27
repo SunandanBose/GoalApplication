@@ -22,11 +22,11 @@ Login[Sign Up POST/signUp] [Login GET/login]<br/>
 
 Python Server(GoalAnalyzer)  (Need To research)<br/>
 
-1. Run Query for Analystics (Doable)<br/>
-	-How regularly he is completeing goals
+1. Run Query for Analytics (Doable)<br/>
+	-How regularly he is completing goals
 	-percentage completion(STG and LTG)
 	-Estimated Completion Time
-	-Target Completeion Time
+	-Target Completion Time
 	-Daily effort increase percentage if he is lacking, if on/ahead track send perfect as default
 2. Store Analytics Data in DB (Need To research)<br/>
 
