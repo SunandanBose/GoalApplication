@@ -14,6 +14,19 @@ CREATE TABLE IF NOT EXISTS `goalreminder`.`user` (
 
   INSERT INTO `goalreminder`.`user` (`username`, `password`, `name`) VALUES ('subhojit.india@gmail.com', 'password', 'Subhojit');
 
+------- TABLE GOALTYPE--------
+
+CREATE TABLE IF NOT EXISTS `goalreminder`.`goaltype` (
+  `id` INT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE);
+
+INSERT INTO `goalreminder`.`goaltype` (`id`, `name`) VALUES ('1', 'Short Term Goal');
+INSERT INTO `goalreminder`.`goaltype` (`id`, `name`) VALUES ('2', 'Long Term Goal');
+
+
+
 ------- TABLE GOAL--------
 
 CREATE TABLE IF NOT EXISTS `goal` (
@@ -35,16 +48,7 @@ CREATE TABLE IF NOT EXISTS `goal` (
 INSERT INTO `goalreminder`.`goal` (`id`, `username`, `description`, `createdAt`, `updateAt`, `target`, `goaltype`)
 VALUES ('1', 'subhojit.india@gmail.com', 'Test', '2019-09-27 16:00:00', '2019-09-27 16:00:00', '2019-09-27 16:00:00', '1');
 
-------- TABLE GOALTYPE--------
 
-CREATE TABLE IF NOT EXISTS `goalreminder`.`goaltype` (
-  `id` INT NOT NULL,
-  `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE);
-
-INSERT INTO `reminder`.`goaltype` (`id`, `name`) VALUES ('1', 'Short Term Goal');
-INSERT INTO `reminder`.`goaltype` (`id`, `name`) VALUES ('2', 'Long Term Goal');
 
 
 ------- TABLE DAILYFEED--------
