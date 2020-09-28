@@ -7,18 +7,19 @@ api = Api(app)
 
 
 cnx = connection.MySQLConnection(user='root', password='password',
-                                 host='127.0.0.1', database='Resource')
+                                 host='127.0.0.1', database='goalreminder')
 
 
 
 class Hello(Resource): 
 	def get(self): 
 
-            # mydb = mysql.connector.connect(host="localhost",user="yourusername",password="yourpassword")
             cursor = cnx.cursor()
-            for line in open('sample.sql'):
-                cursor.execute(line)
-            data = cursor.fetchall()
+            fd = open('GoalAnalyzer.sql', 'r')
+            sqlFile = fd.read()
+            fd.close()
+            cursor.execute(sqlFile)
+            data=cursor.fetchall()
             return data
 
 
