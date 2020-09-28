@@ -1,7 +1,7 @@
 SELECT
 base.username,
-CAST((DATEDIFF(DATE_ADD(base.completed_time, INTERVAL 1 DAY),base.createdat)/DATEDIFF(ltg_target_date,base.createdat))*100 AS DECIMAL(10,2)) AS ltg_percentage_completion,
-CAST((stg_cnt.stg_completed_count/stg.stg_count)*100 AS DECIMAL(10,2)) AS stg_percentage_completion
+CAST((DATEDIFF(DATE_ADD(base.completed_time, INTERVAL 1 DAY),base.createdat)/DATEDIFF(ltg_target_date,base.createdat))*100 AS SIGNED) AS ltg_percentage_completion,
+CAST(((stg_cnt.stg_completed_count/stg.stg_count)*100) AS SIGNED) AS stg_percentage_completion
 FROM
 (
       SELECT
@@ -11,7 +11,7 @@ FROM
       FROM (
             SELECT *
             FROM goalreminder.user
-            WHERE username='${NAME}'
+            -- WHERE username='${NAME}'
            ) u
       LEFT JOIN goalreminder.goal g
       ON u.username=g.username
@@ -28,7 +28,7 @@ LEFT JOIN
        createdat AS stg_created_date,
        count(*) AS stg_count
  FROM goalreminder.goal
- WHERE username='${NAME}' AND
+ WHERE -- username='${NAME}' AND
 	   goaltype='1'
  GROUP BY username,createdat
 ) stg
@@ -40,7 +40,7 @@ LEFT JOIN
        target AS ltg_target_date,
        COUNT(*) AS ltg_count
  FROM goalreminder.goal
- WHERE username='${NAME}' AND
+ WHERE -- username='${NAME}' AND
        goaltype='2'
  GROUP BY username,createdat,target
 ) ltg
@@ -53,7 +53,7 @@ LEFT JOIN
  FROM goalreminder.goal g
  INNER JOIN goalreminder.dailyfeed d
  ON g.id=d.goal_id
- WHERE g.username='${NAME}' AND
+ WHERE -- g.username='${NAME}' AND
        goaltype='1'
  GROUP BY g.username,createdat,target
 ) stg_cnt
